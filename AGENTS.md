@@ -43,3 +43,11 @@ than raising, and names a list with no usable text `[multimodal content]`.
    To check for broken links, run `cd docs && mintlify broken-links`.
 5. After editing English docs, sync translations to `ar`, `ko`, and `pt-BR`
    before finishing the task. Follow [DOCS_TRANSLATIONS.md](DOCS_TRANSLATIONS.md).
+
+## Cursor Cloud specific instructions
+
+- Install with uv 0.13.4 (the version CI pins) and `uv sync --all-groups --all-extras`. The sync is idempotent. `.python-version` selects CPython 3.13, so run project commands with `uv run`.
+- CrewAI is a library and a CLI. Confirm the environment with `uv run crewai version` and an offline `Flow.kickoff()`. `crewai create flow <name>` writes a new project in the current directory.
+- Pytest is configured with `--block-network` in `pyproject.toml`. `uv run ruff check` rewrites files because `[tool.ruff] fix = true`; use `uv run ruff check --no-fix` for a report.
+- `uv run pre-commit install` exits when `core.hooksPath` is set. Leave that git setting in place on Cloud Agent VMs.
+- Docs preview is separate from the library install: `cd docs && mintlify dev`.
